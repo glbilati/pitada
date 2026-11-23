@@ -1,4 +1,4 @@
-.PHONY: install up down run migrate lint format typecheck test check
+.PHONY: install up down run migrate lint format typecheck test check openapi
 
 install:
 	python3 -m venv .venv
@@ -31,3 +31,6 @@ test:
 
 # O mesmo que o CI roda. Passou aqui, passa la.
 check: lint typecheck test
+
+openapi:
+	.venv/bin/python -c "import json; from app.main import app; print(json.dumps(app.openapi(), indent=2, ensure_ascii=False, sort_keys=True))" > docs/openapi.json
